@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,6 @@ namespace ModelReviewFunction.ViewModel
         public ExternalEvent _externalEvent;
         public Window _parentWindow;
 
-
         /// <summary>
         /// 测试字段
         /// </summary>
@@ -39,6 +39,15 @@ namespace ModelReviewFunction.ViewModel
                 isTest = value; RaisePropertyChanged(() => IsTest);
             }
         }
+
+        private int number;
+        [Description("序号")]
+        public int Number
+        {
+            get { return number; }
+            set { number = value; RaisePropertyChanged(() => Number); }
+        }
+
         #region 执行命令
         /// <summary>
         /// 测试命令
@@ -59,7 +68,6 @@ namespace ModelReviewFunction.ViewModel
 
         #endregion
 
-
         #region 执行方法
         /// <summary>
         /// 测试方法
@@ -77,7 +85,6 @@ namespace ModelReviewFunction.ViewModel
                 MessageBox.Show("测试页:" + ex.Message, "提醒");
             }
         }
-
 
         void ExternalEventCommand()
         {

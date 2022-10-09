@@ -101,6 +101,10 @@
   <ItemGroup>
     <Compile Include="AppEvents\DocumentEvent.cs" />
     <Compile Include="Base\CmdBase.cs" />
+    <Compile Include="CommonUtils\ExcelUtils.cs" />
+    <Compile Include="CommonUtils\FileUtils.cs" />
+    <Compile Include="CommonUtils\JsonHelper.cs" />
+    <Compile Include="Common\ConfigHelper.cs" />
     <Compile Include="ExternalEventSet\CommonExternalEvent.cs" />
     <Compile Include="ExternalEventSet\TestCommand.cs" />
     <Compile Include="MVVM\MyConverter.cs" />
@@ -112,13 +116,14 @@
     <Compile Include="MVVM\TreeViewItemMVVM.cs" />
     <Compile Include="Program\CmdNewDrawing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RevitUtils.cs" />
+    <Compile Include="RevitUtils\CommonHelper.cs" />
+    <Compile Include="RevitUtils\ExportUtils.cs" />
+    <Compile Include="RevitUtils\FamilyHelper.cs" />
     <Compile Include="TestCmd.cs" />
     <Compile Include="TestStart.cs" />
     <Compile Include="UI\ExampleUI.xaml.cs">
       <DependentUpon>ExampleUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils.cs" />
     <Compile Include="ViewModel\ExampleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

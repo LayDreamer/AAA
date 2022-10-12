@@ -107,6 +107,7 @@
     <Compile Include="Common\ConfigHelper.cs" />
     <Compile Include="ExternalEventSet\CommonExternalEvent.cs" />
     <Compile Include="ExternalEventSet\TestCommand.cs" />
+    <Compile Include="Model\PlugInLoadConfig.cs" />
     <Compile Include="MVVM\MyConverter.cs" />
     <Compile Include="MVVM\MyObject.cs" />
     <Compile Include="MVVM\MyObservableObject.cs" />

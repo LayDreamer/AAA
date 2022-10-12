@@ -81,6 +81,44 @@ namespace Dev.Framework.CommonUtils
 
 
         /// <summary>
+        /// 获取文件中的文本
+        /// </summary>
+        /// <param name="sPath"></param>
+        /// <returns></returns>
+        public static string GetTextFromFile(string sPath)
+        {
+            string InvalidPathChar = MakeValidPathName(sPath);
+            if (!InvalidPathChar.Equals("")) return null;
+
+            List<string> tmp = new List<string>();
+            string Allline;
+            StreamReader sr = new StreamReader(sPath, Encoding.UTF8);
+            Allline = sr.ReadToEnd();
+            sr.Close();
+            return Allline;
+        }
+
+
+        /// <summary>
+        /// 文件夹路径中是否包含不能包含的字符
+        /// </summary>
+        /// <param name="spath">文件夹路径</param>
+        /// <returns>不能包含的字符</returns>
+        public static string MakeValidPathName(string spath)
+        {
+            var invalidPathNameChars = Path.GetInvalidPathChars();
+            foreach (var c in spath)
+            {
+                if (invalidPathNameChars.Contains(c))
+                {
+                    return c.ToString();
+                }
+            }
+            return "";
+        }
+
+
+        /// <summary>
         /// 重名文件自动添加新文件名
         /// </summary>
         /// <param name="path"></param>

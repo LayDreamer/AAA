@@ -1,0 +1,15 @@
+[     
+	{
+	  "Name": "FamilyConfigure",
+	  "Text": "族库配置",
+	  "AssemblyName": "Dev.Framework",
+	  "ClassName": "Dev.Framework.Program.CmdFamilyLib"
+	},
+	{
+	  "Name": "ProcessDrawing",
+	  "Text": "加工图",
+	  "AssemblyName": "Dev.Framework",
+	  "ClassName": "Dev.Framework.Program.CmdNewDrawing",
+	  "IsHidden":"True"
+	}
+]

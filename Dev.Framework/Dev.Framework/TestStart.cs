@@ -1,7 +1,9 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
+using Dev.Framework.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +16,10 @@ namespace Dev.Framework
         public Result OnStartup(UIControlledApplication application)
         {
             //新建一个选项卡，并在该选项卡总新建一个命令栏（命令栏可以放多个命令按钮）
-            application.CreateRibbonTab("NewTab");
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("NewTab", "TabBar");
+            application.CreateRibbonTab("工具库");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("工具库", "设计软件");
+            AutoAddPushButton(ribbonPanel);
+
             ///1、建立一个可下拉的命令栏
             ///1.1、新建一个可下拉按钮
             //SplitButtonData sbd1 = new SplitButtonData("Name", "Text");
@@ -26,8 +30,8 @@ namespace Dev.Framework
             //PushButtonData p2 = new PushButtonData("Helloworld2", "按钮2", @"d:\desktop\桌面\工作任务\1.开发的功能\模型审核-问题管理功能\2.代码\ModelReviewFunction\ModelReviewFunction\bin\Debug\ModelReviewFunction.dll", "ModelReviewFunction.CmdModelReview");
             //PushButton pushButton2 = sb1.AddPushButton(p2);
             ///2、在选项卡栏添加一个普通按钮
-            PushButtonData p3 = new PushButtonData("Helloworld3", "测试按钮", @"d:\desktop\桌面\TestPro\projectframework\Dev.Framework\Dev.Framework\bin\Debug\Dev.Framework.dll", "Dev.Framework.Program.CmdNewDrawing");
-            PushButton pushButton3 = ribbonPanel.AddItem(p3) as PushButton;
+            //PushButtonData p3 = new PushButtonData("Helloworld3", "测试按钮", @"d:\desktop\桌面\TestPro\projectframework\Dev.Framework\Dev.Framework\bin\Debug\Dev.Framework.dll", "Dev.Framework.Program.CmdNewDrawing");
+            //PushButton pushButton3 = ribbonPanel.AddItem(p3) as PushButton;
             ///3、先准备一张图片,后面给按钮加图片。（这里要引用PresentationCore程序集，再引用system.windows.media.imaging）
             //Uri uriImage = new Uri(@"E:\practice\HelloRevit\HelloRevit\bin\Debug\1.jpg");
             //BitmapImage largeImage = new BitmapImage(uriImage);
@@ -40,6 +44,22 @@ namespace Dev.Framework
         public Result OnShutdown(UIControlledApplication application)
         {
             return Result.Succeeded;
+        }
+
+        public void AutoAddPushButton(RibbonPanel ribbonPanel)
+        {
+            DirectoryInfo directory = new DirectoryInfo(Environment.CurrentDirectory);
+            FileInfo configFile = directory.GetFiles("*.txt", SearchOption.AllDirectories).FirstOrDefault(e => e.Name.Contains("AppConfig"));
+            string dataJson = CommonUtils.FileUtils.GetTextFromFile(configFile.FullName);
+            var datas = CommonUtils.JsonHelper.DeserializeJsonToList<PlugInLoadConfig>(dataJson);
+            foreach (var data in datas)
+            {
+                if (data.IsHidden)
+                    continue;
+                string assemblyPath = Path.Combine(directory.FullName, data.AssemblyName + ".dll");
+                PushButtonData pushButton = new PushButtonData(data.Name, data.Text, assemblyPath, data.ClassName);
+                PushButton button = ribbonPanel.AddItem(pushButton) as PushButton;
+            }
         }
     }
 
